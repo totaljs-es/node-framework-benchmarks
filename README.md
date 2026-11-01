@@ -1,4 +1,4 @@
-# Node Framework Benchmarks
+# Total.js Benchmarks
 
 Reproducible benchmarks comparing **Total.js 4 & 5, Express, Fastify, Node.js HTTP, Meteor, AdonisJS and NestJS / Express**, with public GitHub Actions runs and an evidence-first results explorer.
 

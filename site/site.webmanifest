@@ -1,6 +1,6 @@
 {
-  "name": "Node Framework Benchmarks",
-  "short_name": "Node Benchmarks",
+  "name": "Total.js Benchmarks",
+  "short_name": "Total.js Bench",
   "description": "Reproducible Node.js framework measurements by Spanish Total.js.",
   "id": "./",
   "start_url": "./",

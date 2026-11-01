@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reproducible Node.js framework benchmarks. Explore measured CPU, memory, latency and errors, with raw data, exact versions and public GitHub Actions runs.">
   <meta name="theme-color" content="#172321">
-  <title>Node Framework Benchmarks — Open measurements</title>
+  <title>Total.js Benchmarks — Open measurements</title>
   <link rel="icon" href="assets/toto/favicon.ico" type="image/vnd.microsoft.icon" sizes="16x16 32x32 48x48">
   <link rel="icon" href="assets/toto/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="assets/toto/favicon-16.png" type="image/png" sizes="16x16">
   <link rel="apple-touch-icon" href="assets/toto/apple-touch-icon.png" sizes="180x180">
   <link rel="manifest" href="site.webmanifest">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Node Framework Benchmarks — Open measurements">
+  <meta property="og:title" content="Total.js Benchmarks — Open measurements">
   <meta property="og:description" content="Reproducible Node.js framework measurements by Spanish Total.js, with raw data and public GitHub Actions runs.">
   <meta property="og:url" content="https://totaljs-es.github.io/node-framework-benchmarks/">
   <meta property="og:image" content="https://totaljs-es.github.io/node-framework-benchmarks/assets/toto/favicon-512.png">
@@ -20,18 +20,18 @@
   <meta property="og:image:height" content="512">
   <meta property="og:image:alt" content="Toto, the European red fox mascot of Spanish Total.js">
   <meta name="twitter:card" content="summary">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=totaljs-brand-2">
   <script src="app.js" defer></script>
 </head>
 <body>
   <a class="skip" href="#results">Skip to results</a>
   <header class="topbar"><div class="wrap top-inner">
-    <a class="brand" href="./" aria-label="Node Framework Benchmarks home"><img class="brand-mark" src="assets/toto/favicon-192.png" width="45" height="45" alt="Toto, Spanish Total.js mascot"><span>NODE FRAMEWORK<br><strong>BENCHMARKS</strong></span></a>
+    <a class="brand" href="./" aria-label="Total.js Benchmarks home"><span class="brand-symbol"><img src="assets/toto/favicon-192.png" width="38" height="38" alt="Toto, Spanish Total.js mascot"></span><span class="brand-name">Total.js<strong>BENCHMARKS</strong></span></a>
     <nav aria-label="Main navigation"><a href="#results">Results</a><a href="#methodology">Methodology</a><a class="repo-link" href="https://github.com/totaljs-es/node-framework-benchmarks">View repository <span aria-hidden="true">↗</span></a></nav>
   </div></header>
   <main class="wrap">
     <section class="hero" aria-labelledby="title">
-      <div><p class="eyebrow"><span class="status-dot"></span> OPEN SOURCE · REPRODUCIBLE · VERSIONED</p>
+      <div><p class="eyebrow"><span class="status-dot"></span> TOTAL.JS · OPEN BENCHMARKS</p>
       <h1 id="title">Same work.<br>Same traffic.<br><em>Open measurements.</em></h1>
       <p class="intro">A closer look at how Node.js frameworks use memory and CPU, and respond under load. Every number comes with its inputs, repetitions and raw evidence.</p>
       <a class="button dark" href="#results">Explore the results <span aria-hidden="true">↓</span></a></div>
@@ -73,6 +73,14 @@
     </section>
     <section id="methodology" class="methodology" aria-labelledby="methodology-title"><div><p class="eyebrow">READ BEFORE COMPARING</p><h2 id="methodology-title">A measurement<br>needs its context.</h2><p>These tests answer how these exact implementations behave under these conditions. They do not establish a universal framework ranking.</p><a class="text-link" href="https://github.com/totaljs-es/node-framework-benchmarks/blob/main/docs/methodology.md">Read the full methodology ↗</a></div><div class="method-list"><article><span>01</span><div><h3>Same runtime. Equal resource limits.</h3><p>Node.js is pinned for all participants. Each scenario gets its own GitHub VM; its adapters run sequentially inside a container limited to 2 CPUs and 2 GiB RAM. Different scenarios can use different physical hosts.</p></div></article><article><span>02</span><div><h3>Warm up. Measure. Let it settle.</h3><p>Each measurement starts a fresh process: baseline, 15 s warm-up, 6 s settling, 60 s load and 30 s recovery. Three repetitions at 100 and 1,000 requested requests/s, with rotated adapter order.</p></div></article><article><span>03</span><div><h3>Keep the limits in view.</h3><p>The closed-loop load generator shares the container with the server. Requested traffic is a ceiling, not guaranteed arrivals. RSS is resident process memory, not live JavaScript heap. Hosted machines can vary between runs.</p></div></article><article><span>04</span><div><h3>Follow every number to its source.</h3><p>Download the original samples, exact package versions and verification receipt. Each campaign links to its source commit and workflow run. Smoke checks never enter the measurement history.</p></div></article></div></section>
   </main>
-  <footer><div class="wrap footer-inner"><div class="footer-identity"><img src="assets/toto/favicon-192.png" width="38" height="38" alt="" loading="lazy"><div class="footer-brand">Node Framework Benchmarks<span>Built in the open by <a href="https://www.totaljs.es/">Spanish Total.js Platform</a>.</span><a class="toto-credit" href="https://github.com/totaljs-es/toto">Toto™ · Spanish Total.js</a> <a class="toto-credit" href="assets/toto/LICENSE.md">Artwork license</a></div></div><div><a href="https://github.com/totaljs-es/node-framework-benchmarks">Source &amp; reproduction ↗</a><a href="https://forge.totaljs.es/es/benchmarks/">Original Forge study ↗</a><span>Code: MIT · We ♥ Code</span></div></div></footer>
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="footer-identity">
+        <span class="brand-symbol"><img src="assets/toto/favicon-192.png" width="38" height="38" alt="" loading="lazy"></span>
+        <div class="footer-brand"><strong>Total.js Benchmarks</strong><span>Built in the open by <a href="https://www.totaljs.es/">Spanish Total.js Platform</a>.</span></div>
+      </div>
+      <div class="footer-links"><a href="https://github.com/totaljs-es/node-framework-benchmarks">Source &amp; reproduction ↗</a><a href="https://forge.totaljs.es/es/benchmarks/">Original Forge study ↗</a><span>Code: MIT · We ♥ Code</span></div>
+    </div>
+  </footer>
 </body>
 </html>
