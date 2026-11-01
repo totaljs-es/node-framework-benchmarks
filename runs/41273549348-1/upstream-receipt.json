@@ -1,0 +1,38 @@
+{
+  "schema": "node-framework-benchmarks-receipt-v1",
+  "classification": "measurement",
+  "integrity": "verified-against-installed-inputs",
+  "reviewed": false,
+  "sourceCommit": "dc0f7a59713d6d9089f50605a5cda0ddef9ed2a9",
+  "repository": "totaljs-es/node-framework-benchmarks",
+  "workflowUrl": "https://github.com/totaljs-es/node-framework-benchmarks/actions/runs/41273549348/attempts/1",
+  "runId": "41273549348",
+  "attempt": "1",
+  "workload": "upstream",
+  "rawSha256": "acd5e3bf70e62c974f3da51966cf4ca44244f705615515f2aa189fea61b388c3",
+  "node": "v24.15.0",
+  "runner": {
+    "os": "Linux",
+    "arch": "X64",
+    "image": "ubuntu24",
+    "imageVersion": "20261026.354.1"
+  },
+  "container": {
+    "imageId": "sha256:67c39cc76ef6d0264d03011aec96d7c35053e71833d84a5c525e4a14cca6298e",
+    "baseImage": "node:24.15.0-bookworm",
+    "cpus": 2,
+    "memoryBytes": 2147483648,
+    "swapBytes": 2147483648,
+    "network": "none",
+    "generatorColocated": true
+  },
+  "machine": {
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cores": 4,
+    "ramBytes": 16760344576,
+    "platform": "linux",
+    "release": "7.0.0-1017-azure",
+    "arch": "x64"
+  },
+  "completedAt": "2026-11-01T06:06:05.946Z"
+}

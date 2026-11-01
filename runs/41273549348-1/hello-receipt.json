@@ -1,0 +1,38 @@
+{
+  "schema": "node-framework-benchmarks-receipt-v1",
+  "classification": "measurement",
+  "integrity": "verified-against-installed-inputs",
+  "reviewed": false,
+  "sourceCommit": "dc0f7a59713d6d9089f50605a5cda0ddef9ed2a9",
+  "repository": "totaljs-es/node-framework-benchmarks",
+  "workflowUrl": "https://github.com/totaljs-es/node-framework-benchmarks/actions/runs/41273549348/attempts/1",
+  "runId": "41273549348",
+  "attempt": "1",
+  "workload": "hello",
+  "rawSha256": "fe9254f62eb1e7807ab5f004ce2fddcbc0e6a875b41e80244f0c4c7d64c0f4a8",
+  "node": "v24.15.0",
+  "runner": {
+    "os": "Linux",
+    "arch": "X64",
+    "image": "ubuntu24",
+    "imageVersion": "20261026.354.1"
+  },
+  "container": {
+    "imageId": "sha256:38a1dcb7385425e6aff4a147c372a0e6253897fc17f52e5125c24bff849dfccb",
+    "baseImage": "node:24.15.0-bookworm",
+    "cpus": 2,
+    "memoryBytes": 2147483648,
+    "swapBytes": 2147483648,
+    "network": "none",
+    "generatorColocated": true
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+    "cores": 4,
+    "ramBytes": 16759312384,
+    "platform": "linux",
+    "release": "7.0.0-1017-azure",
+    "arch": "x64"
+  },
+  "completedAt": "2026-11-01T06:05:48.766Z"
+}
