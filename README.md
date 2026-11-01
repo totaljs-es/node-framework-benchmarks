@@ -92,3 +92,7 @@ The suite was extracted from [Total.js Forge](https://forge.totaljs.es/es/benchm
 ## Toto branding
 
 The website uses the official Toto™ face and favicon kit from [Spanish Total.js](https://github.com/totaljs-es/toto), including Apple and 192/512 px icons. The images are unmodified and served locally with relative paths for GitHub Pages. Toto artwork in `site/assets/toto/` is excluded from the MIT code license and retains its [own license](site/assets/toto/LICENSE.md).
+
+## Contributors and AI agents
+
+[AGENTS.md](AGENTS.md) is the shared project guide: repository map, commands, measurement integrity, version updates, publication and branding. [CLAUDE.md](CLAUDE.md), [GEMINI.md](GEMINI.md) and the [Copilot entry point](.github/copilot-instructions.md) refer to it. See [CONTRIBUTING.md](CONTRIBUTING.md) for changes and [SECURITY.md](SECURITY.md) for vulnerability reports.
