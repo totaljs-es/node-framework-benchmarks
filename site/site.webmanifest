@@ -1,0 +1,26 @@
+{
+  "name": "Node Framework Benchmarks",
+  "short_name": "Node Benchmarks",
+  "description": "Reproducible Node.js framework measurements by Spanish Total.js.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "minimal-ui",
+  "lang": "en",
+  "theme_color": "#172321",
+  "background_color": "#f5f5ef",
+  "icons": [
+    {
+      "src": "assets/toto/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/toto/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

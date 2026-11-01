@@ -9,7 +9,7 @@ http.createServer((req, res) => {
   if (!file.startsWith(root + path.sep)) { res.writeHead(403).end(); return; }
   fs.readFile(file, (error, bytes) => {
     if (error) { res.writeHead(404).end('Not found'); return; }
-    res.setHeader('content-type', ({ '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.md': 'text/plain' })[path.extname(file)] || 'application/octet-stream');
+    res.setHeader('content-type', ({ '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.ico': 'image/vnd.microsoft.icon', '.webmanifest': 'application/manifest+json', '.md': 'text/plain' })[path.extname(file)] || 'application/octet-stream');
     res.end(bytes);
   });
 }).listen(4173, '127.0.0.1', () => console.log('Local: http://127.0.0.1:4173'));

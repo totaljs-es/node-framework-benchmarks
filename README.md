@@ -88,3 +88,7 @@ The frontend is plain HTML/CSS/JavaScript with relative asset paths for project 
 - `.github/workflows/`: functional checks, manual measurements and Pages deployment.
 
 The suite was extracted from [Total.js Forge](https://forge.totaljs.es/es/benchmarks/). This repository is maintained by Spanish Total.js Platform, part of the Total.js community; the project has an interest in Total.js. All participant implementations, raw measurements and methodology are public for inspection. Dependencies retain their upstream licenses; this repository's code is MIT licensed.
+
+## Toto branding
+
+The website uses the official Toto™ face and favicon kit from [Spanish Total.js](https://github.com/totaljs-es/toto), including Apple and 192/512 px icons. The images are unmodified and served locally with relative paths for GitHub Pages. Toto artwork in `site/assets/toto/` is excluded from the MIT code license and retains its [own license](site/assets/toto/LICENSE.md).
