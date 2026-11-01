@@ -1,0 +1,16 @@
+{
+  "name": "bench-adonis",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#start/*": "./start/*.js",
+    "#config/*": "./config/*.js",
+    "#exceptions/*": "./app/exceptions/*.js",
+    "#middleware/*": "./app/middleware/*.js"
+  },
+  "dependencies": {
+    "@adonisjs/core": "6.21.0",
+    "@vinejs/vine": "4.4.0",
+    "reflect-metadata": "0.2.2"
+  }
+}

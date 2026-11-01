@@ -1,0 +1,13 @@
+{
+  "name": "forge-benchmarks",
+  "private": true,
+  "description": "Eight production adapters on Node.js 24.15.0: Total.js 4, Total.js 5, Express, Fastify, Node.js http, Meteor, AdonisJS and NestJS.",
+  "scripts": {
+    "contracts": "node v2/check-adapters.cjs",
+    "bench": "node v2/run.cjs",
+    "verify": "node v2/verify.cjs"
+  },
+  "devDependencies": {
+    "autocannon": "8.0.0"
+  }
+}

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Reproducible Node.js framework benchmarks. Explore measured CPU, memory, latency and errors, with raw data, exact versions and public GitHub Actions runs.">
+  <meta name="theme-color" content="#172321">
+  <title>Node Framework Benchmarks — Open measurements</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#results">Skip to results</a>
+  <header class="topbar"><div class="wrap top-inner">
+    <a class="brand" href="./" aria-label="Node Framework Benchmarks home"><span class="brand-mark" aria-hidden="true">n<span>ƒ</span></span><span>NODE FRAMEWORK<br><strong>BENCHMARKS</strong></span></a>
+    <nav aria-label="Main navigation"><a href="#results">Results</a><a href="#methodology">Methodology</a><a class="repo-link" href="https://github.com/totaljs-es/node-framework-benchmarks">View repository <span aria-hidden="true">↗</span></a></nav>
+  </div></header>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <div><p class="eyebrow"><span class="status-dot"></span> OPEN SOURCE · REPRODUCIBLE · VERSIONED</p>
+      <h1 id="title">Same work.<br>Same traffic.<br><em>Open measurements.</em></h1>
+      <p class="intro">A closer look at how Node.js frameworks use memory and CPU, and respond under load. Every number comes with its inputs, repetitions and raw evidence.</p>
+      <a class="button dark" href="#results">Explore the results <span aria-hidden="true">↓</span></a></div>
+      <aside class="protocol" aria-label="Benchmark protocol">
+        <div class="protocol-top"><span class="mono">PROTOCOL / 01</span><span class="small-pill">PUBLIC BY DESIGN</span></div>
+        <div class="protocol-numbers"><div><strong>08</strong><span>participants available</span></div><div><strong>04</strong><span>shared workloads</span></div></div>
+        <div class="protocol-line"><span>Runtime</span><strong>Node.js 24.15.0</strong></div>
+        <div class="protocol-line"><span>Execution</span><strong>One adapter at a time</strong></div>
+        <div class="protocol-line"><span>Evidence</span><strong>Every repetition retained</strong></div>
+        <p class="protocol-foot">Equal requested traffic. Native framework routes.<br>No response caching or pre-serialized shortcuts.</p>
+      </aside>
+    </section>
+    <div class="participants" aria-label="Available participants"><span>THE PARTICIPANTS</span><strong>Total.js 4 &amp; 5</strong><strong>Express</strong><strong>Fastify</strong><strong>Node.js HTTP</strong><strong>Meteor</strong><strong>AdonisJS</strong><strong>NestJS / Express</strong></div>
+
+    <section id="results" class="results" aria-labelledby="results-title">
+      <div class="section-heading"><div><p class="eyebrow">THE MEASUREMENTS</p><h2 id="results-title">Explore the evidence.</h2></div><span class="section-note">Conditions first. Comparisons second.</span></div>
+      <p id="load-status" role="status" aria-live="polite">Loading measurement history…</p>
+      <div id="empty" class="empty" hidden>
+        <span class="empty-symbol" aria-hidden="true">↗</span><div><h3>The first campaign starts here.</h3><p>No measured campaign has been published yet. Run <strong>Benchmarks → Run workflow → measurement</strong> in GitHub Actions. Completed, verified measurements will appear here automatically.</p><p>Functional smoke checks are kept in Actions and never become performance charts.</p><a class="text-link" href="https://github.com/totaljs-es/node-framework-benchmarks/actions/workflows/benchmarks.yml">Open benchmark workflow ↗</a></div>
+      </div>
+      <div id="explorer" hidden>
+        <div class="campaign-bar"><label for="campaign">Campaign history<select id="campaign"></select></label><a id="execution" class="text-link" href="https://github.com/totaljs-es/node-framework-benchmarks/actions">View execution ↗</a><a id="source" class="text-link" href="https://github.com/totaljs-es/node-framework-benchmarks">Exact source ↗</a></div>
+        <div class="filters">
+          <label for="workload">Workload<select id="workload"></select></label>
+          <label for="rate">Requested traffic<select id="rate"></select></label>
+          <label for="metric">Chart metric<select id="metric"><option value="rss">Memory during load · MiB</option><option value="baseline">Baseline memory · MiB</option><option value="recovery">Recovery memory · MiB</option><option value="cpu">CPU · % of one core</option><option value="p50">Latency p50 · ms</option><option value="p99">Latency p99 · ms</option><option value="coverage">Target coverage · %</option><option value="throughput">Completed requests / s</option></select></label>
+        </div>
+        <fieldset class="framework-filter"><legend>Show participants</legend><div id="frameworks"></div></fieldset>
+        <div class="chart-card"><div class="chart-heading"><div><p class="eyebrow" id="chart-context"></p><h3 id="chart-title">Memory during load</h3></div><span class="legend"><i aria-hidden="true"></i> min — median — max</span></div><p id="chart-description" class="muted"></p><div id="chart" role="img" aria-label="Metric ranges; exact values are in the table below"></div><p class="chart-foot">Each dot is the median across repetitions; the line spans their minimum and maximum. Participant order is fixed. Missing metrics are shown as unavailable.</p></div>
+        <div class="data-heading"><h3>All the numbers.</h3><button id="csv" type="button" class="outline-button">Download filtered CSV ↓</button></div>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Detailed measurements"><table><caption>Median [minimum–maximum] across repetitions. Errors and timeouts can overlap.</caption><thead><tr><th scope="col">Participant / version</th><th scope="col">Healthy runs</th><th scope="col">RSS load · MiB</th><th scope="col">CPU · %</th><th scope="col">p99 · ms</th><th scope="col">Coverage · %</th><th scope="col">Errors</th><th scope="col">Timeouts</th><th scope="col">Non-2xx</th></tr></thead><tbody id="rows"></tbody></table></div>
+        <details class="provenance" open><summary>Environment &amp; provenance <span aria-hidden="true">+</span></summary><div id="environment"></div><div class="download-row"><a id="raw">Raw JSON ↓</a><a id="receipt">Verification receipt ↓</a><a id="report">Markdown report ↓</a></div><p class="hash mono" id="hash"></p></details>
+        <p class="review-note"><strong>Automated measurements · not independently reviewed.</strong> Verification checks completeness and recorded inputs. It does not certify fairness or statistical significance. Unhealthy repetitions remain visible.</p>
+      </div>
+    </section>
+
+    <section class="workloads" aria-labelledby="workloads-title"><div class="section-heading"><div><p class="eyebrow">WHAT WE EXERCISE</p><h2 id="workloads-title">Four kinds of work.</h2></div></div>
+      <div class="workload-grid"><article><span class="mono">01 / HELLO</span><h3>A small response.</h3><p>Return a tiny JSON object. A control for framework overhead, rather than a complete application.</p><span class="tag">HTTP + JSON</span></article><article><span class="mono">02 / CATALOG</span><h3>A little computation.</h3><p>Filter 1,000 deterministic records, sort them, select 20 and serialize the result.</p><span class="tag">BOUNDED CPU WORK</span></article><article><span class="mono">03 / VALIDATE</span><h3>A checked input.</h3><p>Parse a JSON POST and validate its fields through each adapter. Check invalid requests separately.</p><span class="tag">PARSING + VALIDATION</span></article><article><span class="mono">04 / UPSTREAM</span><h3>A controlled wait.</h3><p>Call a local service with a 10 ms delay, parse its response and calculate an order total.</p><span class="tag">SIMULATED I/O</span></article></div>
+    </section>
+    <section id="methodology" class="methodology" aria-labelledby="methodology-title"><div><p class="eyebrow">READ BEFORE COMPARING</p><h2 id="methodology-title">A measurement<br>needs its context.</h2><p>These tests answer how these exact implementations behave under these conditions. They do not establish a universal framework ranking.</p><a class="text-link" href="https://github.com/totaljs-es/node-framework-benchmarks/blob/main/docs/methodology.md">Read the full methodology ↗</a></div><div class="method-list"><article><span>01</span><div><h3>Same runtime. Equal resource limits.</h3><p>Node.js is pinned for all participants. Each scenario gets its own GitHub VM; its adapters run sequentially inside a container limited to 2 CPUs and 2 GiB RAM. Different scenarios can use different physical hosts.</p></div></article><article><span>02</span><div><h3>Warm up. Measure. Let it settle.</h3><p>Each measurement starts a fresh process: baseline, 15 s warm-up, 6 s settling, 60 s load and 30 s recovery. Three repetitions at 100 and 1,000 requested requests/s, with rotated adapter order.</p></div></article><article><span>03</span><div><h3>Keep the limits in view.</h3><p>The closed-loop load generator shares the container with the server. Requested traffic is a ceiling, not guaranteed arrivals. RSS is resident process memory, not live JavaScript heap. Hosted machines can vary between runs.</p></div></article><article><span>04</span><div><h3>Follow every number to its source.</h3><p>Download the original samples, exact package versions and verification receipt. Each campaign links to its source commit and workflow run. Smoke checks never enter the measurement history.</p></div></article></div></section>
+  </main>
+  <footer><div class="wrap footer-inner"><div class="footer-brand">Node Framework Benchmarks<span>Built in the open by Spanish Total.js Platform.</span></div><div><a href="https://github.com/totaljs-es/node-framework-benchmarks">Source &amp; reproduction ↗</a><a href="https://forge.totaljs.es/es/benchmarks/">Original Forge study ↗</a><span>MIT · We ♥ Code</span></div></div></footer>
+</body>
+</html>

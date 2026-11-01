@@ -1,0 +1,56 @@
+name: Checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  unit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: .nvmrc
+      - run: npm test
+      - run: npm run build
+  contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Build seven-adapter image (Meteor is checked by the manual full run)
+        run: docker build --target core -t framework-benchmarks .
+      - name: Check all response contracts
+        run: >-
+          docker run --rm --cpus 2 --memory 2g --memory-swap 2g --pids-limit 256
+          --network none --read-only --user "$(id -u):$(id -g)"
+          --tmpfs /tmp:rw,nosuid,nodev,size=512m,mode=1777
+          framework-benchmarks node benchmarks/v2/check-adapters.cjs
+          totaljs4,totaljs,express,fastify,node,adonis,nestjs
+      - name: Exercise runner (functional smoke only)
+        run: |
+          mkdir -p results
+          docker run --rm --cpus 2 --memory 2g --memory-swap 2g --pids-limit 256 \
+            --network none --read-only --user "$(id -u):$(id -g)" \
+            --tmpfs /tmp:rw,nosuid,nodev,size=512m,mode=1777 \
+            -v "$PWD/results:/results" framework-benchmarks \
+            node benchmarks/v2/run.cjs --smoke \
+            --frameworks totaljs4,totaljs,express,fastify,node,adonis,nestjs \
+            --workloads hello,validate --out /results/smoke.json
+          docker run --rm --network none --read-only -v "$PWD/results:/results:ro" \
+            framework-benchmarks node benchmarks/v2/verify.cjs /results/smoke.json --allow-smoke
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: functional-smoke-${{ github.run_attempt }}
+          path: results/
+          retention-days: 7

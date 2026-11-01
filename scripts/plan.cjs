@@ -1,0 +1,11 @@
+'use strict';
+const fs = require('node:fs');
+const { workloads, frameworks } = require('./lib.cjs');
+const profile = process.env.PROFILE || 'smoke';
+const selection = process.env.WORKLOAD || 'all';
+const participants = process.env.PARTICIPANTS || 'all';
+if (!['smoke', 'measurement'].includes(profile) || !['all', ...workloads].includes(selection) || !['all', 'core'].includes(participants)) throw Error('Invalid benchmark inputs');
+const selected = selection === 'all' ? workloads : [selection];
+const ids = frameworks.filter(id => participants === 'all' || id !== 'meteor');
+const output = { matrix: JSON.stringify({ workload: selected }), frameworks: ids.join(','), target: participants === 'all' ? 'full' : 'core' };
+for (const [key, value] of Object.entries(output)) fs.appendFileSync(process.env.GITHUB_OUTPUT, `${key}=${value}\n`);

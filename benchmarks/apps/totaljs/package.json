@@ -1,0 +1,1 @@
+{ "name": "bench-totaljs", "private": true, "dependencies": { "total5": "0.0.19" } }

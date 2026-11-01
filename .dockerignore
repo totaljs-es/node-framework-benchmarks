@@ -1,0 +1,9 @@
+**/node_modules
+**/.meteor/local
+benchmarks/dist-meteor-v2
+benchmarks/results
+.git
+dist
+history
+results
+tests

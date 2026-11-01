@@ -1,0 +1,10 @@
+'use strict';
+const fs=require('fs'),path=require('path'),cp=require('child_process');
+const root=path.resolve(__dirname,'..'),app=path.join(root,'apps/meteor-v2'),dest=path.join(root,'dist-meteor-v2');
+if(fs.existsSync(dest))throw Error('Refusing to overwrite existing Meteor build: '+dest);
+const tool=process.env.METEOR_TOOL||'/root/.meteor/meteor';
+cp.execFileSync(process.execPath.replace(/node$/,'npm'),['ci'],{cwd:app,stdio:'inherit'});
+cp.execFileSync(tool,['build',dest,'--directory','--server-only'],{cwd:app,env:{...process.env,METEOR_ALLOW_SUPERUSER:'1'},stdio:'inherit'});
+const bundle=path.join(dest,'bundle');const expected=fs.readFileSync(path.join(bundle,'.node_version.txt'),'utf8').trim();if(process.version!==expected)throw Error('Build runtime mismatch '+expected+' != '+process.version);
+cp.execFileSync(process.execPath.replace(/node$/,'npm'),['install','--omit=dev','--no-audit','--no-fund'],{cwd:path.join(bundle,'programs/server'),stdio:'inherit'});
+console.log('Built Meteor production bundle for '+process.platform+'/'+process.arch+' '+expected);

@@ -1,0 +1,142 @@
+name: Benchmarks
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: Smoke checks or measured comparison (60s load, 15s warm-up, 30s recovery, 3 repetitions)
+        type: choice
+        options: [smoke, measurement]
+        default: smoke
+      workload:
+        description: Each scenario runs on its own VM; frameworks run sequentially within it
+        type: choice
+        options: [all, hello, catalog, validate, upstream]
+        default: all
+      participants:
+        description: All eight participants, or seven without the Meteor build
+        type: choice
+        options: [all, core]
+        default: all
+permissions:
+  contents: read
+concurrency:
+  group: benchmark-campaign
+  cancel-in-progress: false
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      frameworks: ${{ steps.plan.outputs.frameworks }}
+      target: ${{ steps.plan.outputs.target }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: .nvmrc
+      - id: plan
+        env:
+          PROFILE: ${{ inputs.profile }}
+          WORKLOAD: ${{ inputs.workload }}
+          PARTICIPANTS: ${{ inputs.participants }}
+        run: node scripts/plan.cjs
+  measure:
+    needs: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    env:
+      PROFILE: ${{ inputs.profile }}
+      WORKLOAD: ${{ matrix.workload }}
+      FRAMEWORKS: ${{ needs.plan.outputs.frameworks }}
+      IMAGE_TARGET: ${{ needs.plan.outputs.target }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: .nvmrc
+      - name: Build locked adapters
+        run: docker build --target "$IMAGE_TARGET" -t framework-benchmarks .
+      - name: Run contracts before measuring
+        run: >-
+          docker run --rm --cpus 2 --memory 2g --memory-swap 2g --pids-limit 256
+          --network none --read-only --user "$(id -u):$(id -g)"
+          --tmpfs /tmp:rw,nosuid,nodev,size=512m,mode=1777
+          framework-benchmarks node benchmarks/v2/check-adapters.cjs "$FRAMEWORKS"
+      - name: Run scenario with equal traffic and rotated adapter order
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p results
+          options=(--smoke)
+          if [[ "$PROFILE" == measurement ]]; then
+            options=(--rates 100,1000 --seconds 60 --warmup 15 --rest 30 --reps 3)
+          fi
+          docker run --rm --cpus 2 --memory 2g --memory-swap 2g --pids-limit 256 \
+            --network none --read-only --user "$(id -u):$(id -g)" \
+            --tmpfs /tmp:rw,nosuid,nodev,size=512m,mode=1777 \
+            -v "$PWD/results:/results" framework-benchmarks \
+            node benchmarks/v2/run.cjs --frameworks "$FRAMEWORKS" --workloads "$WORKLOAD" \
+            --connections 32 "${options[@]}" --out /results/result.json
+      - name: Verify exact inputs and generate report
+        shell: bash
+        run: |
+          set -euo pipefail
+          options=()
+          if [[ "$PROFILE" == smoke ]]; then options=(--allow-smoke); fi
+          docker run --rm --network none --read-only -v "$PWD/results:/results:ro" \
+            framework-benchmarks node benchmarks/v2/verify.cjs /results/result.json "${options[@]}"
+          docker run --rm --network none --read-only -v "$PWD/results:/results:ro" \
+            framework-benchmarks node benchmarks/v2/report.cjs /results/result.json "${options[@]}" > results/report.md
+          node scripts/receipt.cjs results
+          cat results/report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Preserve complete or partial evidence
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: benchmark-${{ github.run_attempt }}-${{ matrix.workload }}
+          path: results/
+          retention-days: 30
+          if-no-files-found: warn
+  archive:
+    needs: [plan, measure]
+    if: inputs.profile == 'measurement' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version-file: .nvmrc
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          pattern: benchmark-${{ github.run_attempt }}-*
+          path: incoming
+      - name: Append immutable campaign to the results branch
+        env:
+          HISTORY_DIR: ${{ runner.temp }}/benchmark-history
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git show-ref --verify --quiet refs/remotes/origin/results; then
+            git worktree add --detach "$HISTORY_DIR" origin/results
+          else
+            git worktree add --detach "$HISTORY_DIR" HEAD
+            git -C "$HISTORY_DIR" switch --orphan results
+          fi
+          node scripts/archive.cjs incoming "$HISTORY_DIR"
+          node scripts/build-site.cjs "$HISTORY_DIR" "$RUNNER_TEMP/site-validation"
+          git -C "$HISTORY_DIR" config user.name 'github-actions[bot]'
+          git -C "$HISTORY_DIR" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C "$HISTORY_DIR" add index.json runs
+          git -C "$HISTORY_DIR" commit -m "Record benchmark campaign $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT"
+          git push origin "$(git -C "$HISTORY_DIR" rev-parse HEAD):refs/heads/results"

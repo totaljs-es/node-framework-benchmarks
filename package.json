@@ -1,0 +1,12 @@
+{
+  "name": "node-framework-benchmarks",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reproducible Node.js framework measurements and a static results explorer.",
+  "scripts": {
+    "test": "node --test tests/*.test.cjs",
+    "build": "node scripts/build-site.cjs",
+    "serve": "node scripts/serve.cjs"
+  },
+  "engines": { "node": ">=24" }
+}
