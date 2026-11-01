@@ -20,7 +20,7 @@ git diff --check
 
 For website changes, serve the build with `npm run serve` and inspect desktop/mobile layouts and project-relative asset paths. For documentation-only changes, check the referenced paths and commands; a full benchmark is unnecessary.
 
-For adapter/runner changes, use the Docker contracts and smoke steps described in [AGENTS.md](AGENTS.md) and README. Include Meteor when affected. Verify runner output against the same built inputs. State which checks passed and which could not run. CI checks seven adapters; the manual `all` workflow also builds and checks Meteor.
+For adapter/runner changes, use the Docker contracts and smoke steps described in [AGENTS.md](AGENTS.md) and the [development guide](docs/development.md). Include Meteor when affected. Verify runner output against the same built inputs. State which checks passed and which could not run. CI checks seven adapters; the manual `all` workflow also builds and checks Meteor.
 
 ## Results and versions
 

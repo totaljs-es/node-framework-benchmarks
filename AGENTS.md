@@ -4,7 +4,7 @@
 
 **Total.js Benchmarks**, maintained by Spanish Total.js Platform. The repository name is `node-framework-benchmarks`. It compares Total.js 4 and 5 with Express, Fastify, Node.js HTTP, Meteor, AdonisJS and NestJS / Express, and publishes an explorer on GitHub Pages.
 
-Read [README.md](README.md) for setup and [docs/methodology.md](docs/methodology.md) before changing measurements or interpreting results. This is a static website and a Node.js/Docker benchmark suite, not a running Total.js web application. Keep the existing plain HTML/CSS/JavaScript and dependency-free root tools.
+Read [README.md](README.md) for the public overview, [docs/development.md](docs/development.md) for setup/reproduction, and [docs/methodology.md](docs/methodology.md) before changing measurements or interpreting results. This is a static website and a Node.js/Docker benchmark suite, not a running Total.js web application. Keep the existing plain HTML/CSS/JavaScript and dependency-free root tools.
 
 ## Repository map
 
@@ -41,7 +41,7 @@ docker run --rm --cpus 2 --memory 2g --memory-swap 2g --pids-limit 256 \
   totaljs4,totaljs,express,fastify,node,adonis,nestjs
 ```
 
-Use `--target full` and include `meteor` when that adapter is affected. Follow README instructions for runner smoke and verification in the same image. `node benchmarks/v2/run.cjs --help` lists runner options; host execution requires the adapter and generator dependencies, and Meteor's built bundle requires its exact Node version.
+Use `--target full` and include `meteor` when that adapter is affected. Follow docs/development.md instructions for runner smoke and verification in the same image. `node benchmarks/v2/run.cjs --help` lists runner options; host execution requires the adapter and generator dependencies, and Meteor's built bundle requires its exact Node version.
 
 - Documentation-only changes: check wording, referenced paths/commands and `git diff --check`. Do not start a long measurement campaign as a side effect.
 - Website changes: build and inspect the affected UI in a real browser at narrow and desktop widths. Check the project subpath, image loading, filters/downloads when affected, keyboard access and overflow. Bump the stylesheet query version in `site/index.html` when changing CSS so the deployed page does not reuse stale styles.
