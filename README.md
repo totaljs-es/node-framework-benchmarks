@@ -1,6 +1,12 @@
-<img src="site/assets/toto/favicon-192.png" width="80" height="80" alt="Toto, the mascot of Spanish Total.js">
+<p align="center"><img src="site/assets/toto/favicon-192.png" width="128" height="128" alt="Toto, the mascot of Spanish Total.js" /></p>
 
-# Total.js Benchmarks
+<h1 align="center">Total.js Benchmarks</h1>
+
+<p align="center">
+  <a href="https://github.com/totaljs-es/node-framework-benchmarks/actions/workflows/benchmarks.yml"><img src="https://github.com/totaljs-es/node-framework-benchmarks/actions/workflows/benchmarks.yml/badge.svg" alt="Benchmarks" /></a>
+  <a href="https://github.com/totaljs-es/node-framework-benchmarks/actions/workflows/ci.yml"><img src="https://github.com/totaljs-es/node-framework-benchmarks/actions/workflows/ci.yml/badge.svg" alt="Checks" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license" /></a>
+</p>
 
 Public, reproducible comparisons of **Total.js 4 & 5, Express, Fastify, Node.js HTTP, Meteor, AdonisJS and NestJS / Express**, maintained by Spanish Total.js Platform.
 
