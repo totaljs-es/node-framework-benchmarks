@@ -90,7 +90,7 @@ function render() {
   $('chart-context').textContent = `${c.workload.toUpperCase()} / ${Number($('rate').value).toLocaleString()} REQUESTED REQ/S / ${c.config.reps} REPETITIONS`;
   $('chart-title').textContent = label;
   $('chart-description').textContent = metric === 'throughput' || metric === 'coverage' ? 'At a fixed requested rate, higher completed throughput is not evidence of greater maximum capacity. Read coverage with errors and timeouts.' : metric === 'cpu' ? 'Process CPU time over the sampled load window, as a percentage of one logical CPU. The container also runs the load generator.' : metric.includes('rss') || ['baseline', 'recovery'].includes(metric) ? 'Median server RSS within the selected phase, then summarized across repetitions. Sampled resident memory includes the runtime.' : 'Latency percentiles describe completed requests. Read them alongside timeouts and achieved traffic.';
-  $('chart').replaceChildren(...rows.map(r => {
+  $('chart').replaceChildren(...state.rows.map(r => {
     const s = r.metrics[metric];
     const row = el('div', undefined, 'chart-row');
     row.append(el('span', names[r.framework], 'chart-name'));

@@ -21,7 +21,7 @@
   <meta property="og:image:alt" content="Toto, the European red fox mascot of Spanish Total.js">
   <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="styles.css?v=totaljs-brand-2">
-  <script src="app.js?v=2" defer></script>
+  <script src="app.js?v=3" defer></script>
 </head>
 <body>
   <a class="skip" href="#results">Skip to results</a>
@@ -60,7 +60,7 @@
           <label for="metric">Metric<select id="metric"><option value="rss">Memory during load · MiB</option><option value="baseline">Baseline memory · MiB</option><option value="recovery">Recovery memory · MiB</option><option value="cpu">CPU · % of one core</option><option value="p50">Latency p50 · ms</option><option value="p99">Latency p99 · ms</option><option value="coverage">Target coverage · %</option><option value="throughput">Completed requests / s</option></select></label>
         </div>
         <fieldset class="framework-filter"><legend>Show participants</legend><div id="frameworks"></div></fieldset>
-        <div class="chart-card"><div class="chart-heading"><div><p class="eyebrow" id="chart-context"></p><h3 id="chart-title">Memory during load</h3></div><span class="legend"><i aria-hidden="true"></i> min — median — max</span></div><p id="chart-description" class="muted"></p><div id="chart" role="img" aria-label="Metric ranges; exact values are in the table below"></div><p class="chart-foot">Each dot is the median across repetitions; the line spans their minimum and maximum. Participant order is fixed. Missing metrics are shown as unavailable.</p></div>
+        <div class="chart-card"><div class="chart-heading"><div><p class="eyebrow" id="chart-context"></p><h3 id="chart-title">Memory during load</h3></div><span class="legend"><i aria-hidden="true"></i> min — median — max</span></div><p id="chart-description" class="muted"></p><div id="chart" role="img" aria-label="Metric ranges; exact values are in the table below"></div><p class="chart-foot">Each dot is the median across repetitions; the line spans their minimum and maximum. The chart and table use the same order. Missing metrics are shown as unavailable.</p></div>
         <div class="data-heading"><h3>All the numbers.</h3><button id="csv" type="button" class="outline-button">Download filtered CSV ↓</button></div>
         <div class="table-scroll" tabindex="0" role="region" aria-label="Detailed measurements"><table><caption><strong id="table-order"></strong> Median [minimum–maximum] across repetitions. Errors and timeouts can overlap.</caption><thead><tr><th scope="col">Participant / version</th><th scope="col">Healthy runs</th><th scope="col" id="extra-metric" hidden></th><th scope="col">RSS load · MiB</th><th scope="col">CPU · %</th><th scope="col">p99 · ms</th><th scope="col">Coverage · %</th><th scope="col">Errors</th><th scope="col">Timeouts</th><th scope="col">Non-2xx</th></tr></thead><tbody id="rows"></tbody></table></div>
         <details class="provenance" open><summary>Environment &amp; provenance <span aria-hidden="true">+</span></summary><div id="environment"></div><div class="download-row"><a id="raw">Raw JSON ↓</a><a id="receipt">Verification receipt ↓</a><a id="report">Markdown report ↓</a></div><p class="hash mono" id="hash"></p></details>
