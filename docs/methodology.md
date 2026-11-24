@@ -44,7 +44,7 @@ Repeat three times, rotating adapter order. An eight-participant, four-workload 
 - Autocannon uses a rate-limited **closed-loop** model. Requested rate is a ceiling, not independently delivered arrivals. Finite connections and the generator can constrain observed throughput. At a fixed target, slightly greater completed RPS is not evidence of greater maximum capacity.
 - Coverage is completions divided by `rate × generator duration`. It can exceed 100% with short-window timing/bursts. The raw file also preserves sent counts, effective connections and generator CPU/RSS/event-loop delay.
 - A healthy repetition has at least 95% target coverage, p99 ≤ 250 ms, zero errors, zero timeouts and zero non-2xx responses. This is a short-window check. Unhealthy runs are included rather than discarded. Autocannon's errors/timeouts can overlap, so they are shown separately and never summed.
-- The page preserves participant order and all repetitions. Large or overlapping ranges deserve further investigation; this is not an automated winner selector or a significance test.
+- The chart preserves participant order. The table sorts by the selected metric’s median and shows missing values last. All repetitions remain visible. Large or overlapping ranges deserve further investigation; this is not an automated winner selector or a significance test.
 
 ## Verification and publication
 

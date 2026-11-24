@@ -4,6 +4,7 @@ const names = { totaljs4: 'Total.js 4', totaljs: 'Total.js 5', express: 'Express
 const colors = { totaljs4: '#577b42', totaljs: '#3d6240', express: '#cf6d42', fastify: '#a3852b', node: '#597f6f', meteor: '#b16465', adonis: '#8772ad', nestjs: '#486d83' };
 const workloadNames = { hello: 'Hello · small JSON response', catalog: 'Catalog · filter, sort & serialize', validate: 'Validate · JSON input', upstream: 'Upstream · simulated I/O' };
 const metricNames = { rss: ['Memory during load', 'MiB'], baseline: ['Baseline memory', 'MiB'], recovery: ['Memory after recovery', 'MiB'], cpu: ['Server CPU utilization', '%'], p50: ['Median response latency', 'ms'], p99: ['Tail response latency · p99', 'ms'], coverage: ['Coverage of requested traffic', '%'], throughput: ['Completed requests per second', 'req/s'] };
+const tableMetrics = ['rss', 'cpu', 'p99', 'coverage'];
 const state = { index: null, campaign: null, comparison: null, selected: new Set(), rows: [], request: 0 };
 const number = n => Number.isFinite(n) ? n.toLocaleString('en-US', { maximumFractionDigits: 1, minimumFractionDigits: 1 }) : 'Unavailable';
 const range = s => s ? `${number(s.median)} [${number(s.min)}–${number(s.max)}]` : 'Unavailable';
@@ -75,7 +76,16 @@ function render() {
   const metric = $('metric').value;
   const [label, unit] = metricNames[metric];
   const rows = c.rows.filter(r => r.rate === Number($('rate').value) && state.selected.has(r.framework));
-  state.rows = rows;
+  const higherFirst = metric === 'coverage' || metric === 'throughput';
+  const sortValue = row => {
+    const median = row.metrics[metric]?.median;
+    return Number.isFinite(median) ? (higherFirst ? -median : median) : Infinity;
+  };
+  state.rows = rows.toSorted((a, b) => sortValue(a) - sortValue(b));
+  const extraMetric = !tableMetrics.includes(metric);
+  $('table-order').textContent = `Sorted by ${label.toLowerCase()} (${higherFirst ? 'highest' : 'lowest'} first).`;
+  $('extra-metric').hidden = !extraMetric;
+  $('extra-metric').textContent = `${label} · ${unit}`;
   const maximum = Math.max(1, ...rows.map(r => r.metrics[metric]?.max || 0)) * 1.12;
   $('chart-context').textContent = `${c.workload.toUpperCase()} / ${Number($('rate').value).toLocaleString()} REQUESTED REQ/S / ${c.config.reps} REPETITIONS`;
   $('chart-title').textContent = label;
@@ -95,10 +105,12 @@ function render() {
     row.append(track, value); return row;
   }));
   if (!rows.length) $('chart').append(el('p', 'Select a participant to explore its measurements.', 'muted'));
-  $('rows').replaceChildren(...rows.map(r => {
+  $('rows').replaceChildren(...state.rows.map(r => {
     const row = el('tr'), name = el('td'); name.append(el('strong', names[r.framework]), el('small', r.version));
     const health = el('td'); health.append(el('span', `${r.healthy} / ${r.repetitions}`, `health${r.healthy < r.repetitions ? ' bad' : ''}`));
-    row.append(name, health, ...['rss', 'cpu', 'p99', 'coverage'].map(m => el('td', range(r.metrics[m]))), el('td', r.errors), el('td', r.timeouts), el('td', r.non2xx));
+    row.append(name, health);
+    if (extraMetric) row.append(el('td', range(r.metrics[metric])));
+    row.append(...tableMetrics.map(m => el('td', range(r.metrics[m]))), el('td', r.errors), el('td', r.timeouts), el('td', r.non2xx));
     return row;
   }));
   $('csv').disabled = !rows.length;
