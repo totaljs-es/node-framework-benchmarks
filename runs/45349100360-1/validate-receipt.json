@@ -1,0 +1,38 @@
+{
+  "schema": "node-framework-benchmarks-receipt-v1",
+  "classification": "measurement",
+  "integrity": "verified-against-installed-inputs",
+  "reviewed": false,
+  "sourceCommit": "bbcea920c4c38728ed145aa23e568421dbee0fab",
+  "repository": "totaljs-es/node-framework-benchmarks",
+  "workflowUrl": "https://github.com/totaljs-es/node-framework-benchmarks/actions/runs/45349100360/attempts/1",
+  "runId": "45349100360",
+  "attempt": "1",
+  "workload": "validate",
+  "rawSha256": "5af6d5989fe06578776be058cbf07c6be58473feb024836da2d765256f75b651",
+  "node": "v24.15.0",
+  "runner": {
+    "os": "Linux",
+    "arch": "X64",
+    "image": "ubuntu24",
+    "imageVersion": "20261116.133.1"
+  },
+  "container": {
+    "imageId": "sha256:46f05d7865ffdc1bb9dead99e4887cd87f3b024f3eef5dc42a8d5bf37c1571cf",
+    "baseImage": "node:24.15.0-bookworm",
+    "cpus": 2,
+    "memoryBytes": 2147483648,
+    "swapBytes": 2147483648,
+    "network": "none",
+    "generatorColocated": true
+  },
+  "machine": {
+    "cpu": "Intel(R) Xeon(R) 6975P-C",
+    "cores": 4,
+    "ramBytes": 16464306176,
+    "platform": "linux",
+    "release": "7.0.0-1014-aws",
+    "arch": "x64"
+  },
+  "completedAt": "2026-11-24T09:07:03.288Z"
+}

@@ -2,6 +2,18 @@
   "schema": 1,
   "campaigns": [
     {
+      "id": "45349100360-1",
+      "completedAt": "2026-11-24T09:07:42.820Z",
+      "sourceCommit": "bbcea920c4c38728ed145aa23e568421dbee0fab",
+      "workloads": [
+        "catalog",
+        "hello",
+        "upstream",
+        "validate"
+      ],
+      "summary": "runs/45349100360-1/summary.json"
+    },
+    {
       "id": "41273549348-1",
       "completedAt": "2026-11-01T06:06:08.391Z",
       "sourceCommit": "dc0f7a59713d6d9089f50605a5cda0ddef9ed2a9",
